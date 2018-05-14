@@ -1,0 +1,29 @@
+.terminal {
+    background: #000;
+	color: #0a0;
+	text-shadow: 0 0 3px #0f0;
+	font: 10pt monospace;
+	white-space: pre;
+	tab-size: 4;
+}
+
+html {
+    background: #000;
+}
+
+.cursor {
+    animation-name: blinking;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes blinking {
+    0% {
+        background-color: #000;
+        box-shadow:  0 0 3px #000;
+    }
+    50% {
+        background-color: #0a0;
+        box-shadow:  0 0 3px #0f0;
+    }
+}
