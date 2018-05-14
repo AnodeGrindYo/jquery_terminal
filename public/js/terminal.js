@@ -1,15 +1,20 @@
 var userinput = "";
+var inputlines = 1;
 var toeval = "";
+
+
 // permet de récupérer et d'afficher les touches du clavier saisies par l'utilisateur
 function addchar(event) {
     userinput += event.key;
     $(".userinput").html(userinput);
 };
+
 // permet de supprimer un caractère avec un appui sur backspace
 function delchar(event) {
     userinput = userinput.slice(0, -1);
     $(".userinput").html(userinput);
 };
+
 // permet de valider la saisie
 function validateinput() {
     var newhistory = $(".input").html();
@@ -20,10 +25,26 @@ function validateinput() {
     userinput = "";
     $(".input").before(newhistory);
     $('.userinput').html(userinput);
-}
+    $(document).scrollTop($(document).height());
+    inputlines = 1;
+};
+
+
 // évalue la touche appuyée et lance les bonnes fonctions en conséquence
 $('html').keydown(function (event) {
+    console.log("lines : "+inputlines);
     console.log(event.keyCode);
+    console.log("length: "+userinput.length);
+    if(userinput.length == 206 && inputlines == 1)
+    {
+        userinput += "<br>";
+        inputlines++;
+    }
+    else if ((userinput.length - 206)%252 == 0)
+    {
+        userinput += "<br>";
+        inputlines++;
+    }
     switch (event.keyCode) {
     case 8:
         delchar(event); // touche backspace
@@ -31,6 +52,7 @@ $('html').keydown(function (event) {
     case 13:
         validateinput(); // touche entrée
         break;
+    case 9: // touche tab
     case 16: // touche shift
     case 17: // touche control
     case 18: // touche altgraph

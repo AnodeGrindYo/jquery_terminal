@@ -5,9 +5,23 @@
 	font: 10pt monospace;
 	white-space: pre;
 	tab-size: 4;
+    width: 100vw;
+    /*max-width: 100vw;*/
+    overflow-x: hidden;
+    /*display: flex;
+    flex-wrap: wrap;
+    word-wrap: break-word;*/
+}
+
+input {
+    word-wrap: break-word;
 }
 
 html {
+    background: #000;
+}
+
+body {
     background: #000;
 }
 
