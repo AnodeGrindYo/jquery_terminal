@@ -11,6 +11,8 @@ if(isset($_POST) && isset($_POST["input"]))
         break;
         case "whoami": whoami();
         break;
+        case "people_in_space": people_in_space();
+        break;
         case "iss_location": iss_location();
         break;
         /*case "showcv": showcv(); // déplacé en front

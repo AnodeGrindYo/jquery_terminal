@@ -45,6 +45,9 @@ function help(arg)
         case "iss_location": terminalresponse = "permet d'afficher la position actuelle de la station spatiale internationale<br>au format JSON (si vous ne savez pas ce que c'est, c'est un format de structure de données standard sur le web... essayez la commande, vous allez comprendre)";
             $(".input").before(terminalresponse);
             break;
+        case "people_in_space": terminalresponse = "permet d'afficher la liste des personnes actuellement dans l'espace, au format JSON";
+            $(".input").before(terminalresponse);
+            break;
         default: terminalresponse = "commande inconnue : '"+arg+"'";
             $(".input").before(terminalresponse);
             break;
@@ -101,7 +104,22 @@ function iss_location()
         console.log(retour);
         $(".input").before(retour);
     });
-}
+};
+
+// affiche la liste des personnes actuellement dans l'espace
+function people_in_space()
+{
+    terminalresponse = $.ajax({
+        method: "POST",
+        url: "src/ctrl/route.php",
+        data: {"input": "people_in_space"},
+        dataType: "text"
+    })
+    .done(function(retour){
+        console.log(retour);
+        $(".input").before(retour);
+    });
+};
 
 // évalue la saisie utilisateur, détecte les commandes implémentées et lance les fonctions correspondantes
 function evalinput(input)
@@ -121,6 +139,8 @@ function evalinput(input)
             }
             break;
         case "iss_location": iss_location();
+            break;
+        case "people_in_space": people_in_space();
             break;
         case 'showcv': showcv();
         break;
