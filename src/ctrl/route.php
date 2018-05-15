@@ -9,5 +9,7 @@ if(isset($_POST) && isset($_POST["input"]))
     {
         case "help_generic": show_help();
         break;
+        /*case "showcv": showcv(); // déplacé en front
+        break;*/
     }
 }

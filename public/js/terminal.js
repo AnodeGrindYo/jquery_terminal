@@ -55,7 +55,14 @@ function help_generic()
         console.log(retour);
         $(".input").before(retour);
     });
-}
+};
+
+// affiche le cv dans un nouvel onglet
+function showcv()
+{
+    console.log(window.location.pathname);
+    window.open(window.location.pathname+"/../public/files/Adrien_Godoy_SoftDev.pdf");
+};
 
 // évalue la saisie utilisateur, détecte les commandes implémentées et lance les fonctions correspondantes
 function evalinput(input)
@@ -74,6 +81,8 @@ function evalinput(input)
                 help_generic();
             }
             break;
+        case 'showcv': showcv();
+        break;
         default: terminalresponse = "commande inconnue : '"+arr[0]+"'";
             $(".input").before(terminalresponse);
             break;
