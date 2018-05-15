@@ -15,14 +15,17 @@
 
 input {
     word-wrap: break-word;
+    overflow-x: hidden;
 }
 
 html {
     background: #000;
+    overflow-x: hidden;
 }
 
 body {
     background: #000;
+    overflow-x: hidden;
 }
 
 .cursor {

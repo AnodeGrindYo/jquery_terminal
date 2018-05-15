@@ -36,6 +36,15 @@ function help(arg)
 {
     switch(arg)
     {
+        case "showcv": terminalresponse = "affiche mon cv en pdf dans un nouvel onglet";
+            $(".input").before(terminalresponse);
+            break;
+        case "whoami": terminalresponse = "\"Connais-toi toi-même et tu connaîtras l'univers et les dieux.\"";
+            $(".input").before(terminalresponse);
+            break;
+        case "iss_location": terminalresponse = "permet d'afficher la position actuelle de la station spatiale internationale<br>au format JSON (si vous ne savez pas ce que c'est, c'est un format de structure de données standard sur le web... essayez la commande, vous allez comprendre)";
+            $(".input").before(terminalresponse);
+            break;
         default: terminalresponse = "commande inconnue : '"+arg+"'";
             $(".input").before(terminalresponse);
             break;
@@ -64,6 +73,36 @@ function showcv()
     window.open(window.location.pathname+"/../public/files/Adrien_Godoy_SoftDev.pdf");
 };
 
+// affiche des infos basiques sur le visiteur
+function whoami()
+{
+    terminalresponse = $.ajax({
+        method: "POST",
+        url: "src/ctrl/route.php",
+        data: {"input": "whoami"},
+        dataType: "text"
+    })
+    .done(function(retour){
+        console.log(retour);
+        $(".input").before(retour);
+    });
+};
+
+// affiche la position actuelle de l'ISS
+function iss_location()
+{
+    terminalresponse = $.ajax({
+        method: "POST",
+        url: "src/ctrl/route.php",
+        data: {"input": "iss_location"},
+        dataType: "text"
+    })
+    .done(function(retour){
+        console.log(retour);
+        $(".input").before(retour);
+    });
+}
+
 // évalue la saisie utilisateur, détecte les commandes implémentées et lance les fonctions correspondantes
 function evalinput(input)
 {
@@ -81,7 +120,11 @@ function evalinput(input)
                 help_generic();
             }
             break;
+        case "iss_location": iss_location();
+            break;
         case 'showcv': showcv();
+        break;
+        case 'whoami': whoami();
         break;
         default: terminalresponse = "commande inconnue : '"+arr[0]+"'";
             $(".input").before(terminalresponse);
