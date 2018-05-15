@@ -20,15 +20,10 @@ require_once("src/util/get_visitor_infos.php");
 
 <body>
    <div class="container-fluid terminal">
-        <!--<div class="history"></div>-->
          <div class="input">
             <span class="prompt"><?php echo  get_client_ip_env();?>@developpeur-logiciel.fr<span class="separator">&nbsp;&#62;&nbsp;</span></span><span class="userinput"></span><span class="cursor">&nbsp; </span>
          </div>
    </div>
     <script src="public/js/terminal.js"></script>
-    <!--<script type="text/javascript">
-        
-        
-    </script>-->
 </body>
 </html>

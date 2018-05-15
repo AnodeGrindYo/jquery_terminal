@@ -1,6 +1,7 @@
 var userinput = "";
 var inputlines = 1;
 var toeval = "";
+var terminalresponse = "";
 
 
 // permet de récupérer et d'afficher les touches du clavier saisies par l'utilisateur
@@ -24,18 +25,67 @@ function validateinput() {
     toeval = userinput;
     userinput = "";
     $(".input").before(newhistory);
+    evalinput(toeval); console.log(toeval);
     $('.userinput').html(userinput);
     $(document).scrollTop($(document).height());
-    inputlines = 1;
+    //inputlines = 1;
 };
 
+// fonction d'aide de l'utilisateur pour une commande spécifique
+function help(arg)
+{
+    switch(arg)
+    {
+        default: terminalresponse = "commande inconnue : '"+arg+"'";
+            $(".input").before(terminalresponse);
+            break;
+    }
+};
+
+// fonction d'aide générique qui liste les commandes implémentées
+function help_generic()
+{
+    terminalresponse = $.ajax({
+        method: "POST",
+        url: "src/ctrl/route.php",
+        data: {"input": "help_generic"},
+        dataType: "text"
+    })
+    .done(function(retour){
+        console.log(retour);
+        $(".input").before(retour);
+    });
+}
+
+// évalue la saisie utilisateur, détecte les commandes implémentées et lance les fonctions correspondantes
+function evalinput(input)
+{
+    console.log("evalinput");
+    var arr = input.split(' ');
+    switch(arr[0])
+    {
+        case 'help': 
+            if (arr.length > 1)
+            {
+                help(arr[1]);
+            }
+            else
+            {
+                help_generic();
+            }
+            break;
+        default: terminalresponse = "commande inconnue : '"+arr[0]+"'";
+            $(".input").before(terminalresponse);
+            break;
+    }
+};
 
 // évalue la touche appuyée et lance les bonnes fonctions en conséquence
 $('html').keydown(function (event) {
     console.log("lines : "+inputlines);
     console.log(event.keyCode);
     console.log("length: "+userinput.length);
-    if(userinput.length == 206 && inputlines == 1)
+    /*if(userinput.length == 206 && inputlines == 1)
     {
         userinput += "<br>";
         inputlines++;
@@ -44,7 +94,7 @@ $('html').keydown(function (event) {
     {
         userinput += "<br>";
         inputlines++;
-    }
+    }*/
     switch (event.keyCode) {
     case 8:
         delchar(event); // touche backspace
@@ -87,7 +137,9 @@ $('html').keydown(function (event) {
     case 226: // touche <
         break;
     default:
-        addchar(event); // autres touches du clavier
+        if (userinput.length < 145) { // limite la saisie utilisateur à 144 chars
+            addchar(event); // autres touches du clavier
+        }
         break;
     }
 });
