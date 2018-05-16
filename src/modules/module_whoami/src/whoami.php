@@ -2,6 +2,7 @@
 
 function whoami()
 {
+  //echo "function whoami";
 	$ip = get_client_ip_env();
 	$os = getOS();
 	$browser = getBrowser();
@@ -21,7 +22,28 @@ function whoami()
 			</tbody>
 		</table>
 	";
-	echo $htmltable;
+  $caption = "
+    <video autoplay></video>
+    <script>
+    const constraints = {
+      video: true
+    };
+
+    const video = document.querySelector('video');
+
+    function handleSuccess(stream) {
+      video.srcObject = stream;
+    }
+
+    function handleError(error) {
+      console.error('Reeeejected!', error);
+    }
+
+    navigator.mediaDevices.getUserMedia(constraints).
+      then(handleSuccess).catch(handleError);
+    </script>
+  ";
+	echo $caption.$htmltable;
 }
 
 function get_client_ip_env() 

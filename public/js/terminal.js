@@ -42,12 +42,15 @@ function help(arg)
         case "whoami": terminalresponse = "\"Connais-toi toi-même et tu connaîtras l'univers et les dieux.\"";
             $(".input").before(terminalresponse);
             break;
-        case "iss_location": terminalresponse = "permet d'afficher la position actuelle de la station spatiale internationale<br>au format JSON (si vous ne savez pas ce que c'est, c'est un format de structure de données standard sur le web... essayez la commande, vous allez comprendre)";
+        case "apod": terminalresponse = "affiche la photo d'astronomie du jour et quelques infos à son sujet";
             $(".input").before(terminalresponse);
             break;
-        case "people_in_space": terminalresponse = "permet d'afficher la liste des personnes actuellement dans l'espace, au format JSON";
+        /*case "iss_location": terminalresponse = "permet d'afficher la position actuelle de la station spatiale internationale<br>au format JSON (si vous ne savez pas ce que c'est, c'est un format de structure de données standard sur le web... essayez la commande, vous allez comprendre)<br>désactivé car l'API est en http et je suis en https";
             $(".input").before(terminalresponse);
             break;
+        case "people_in_space": terminalresponse = "permet d'afficher la liste des personnes actuellement dans l'espace, au format JSON<br>désactivé car l'API est en http et je suis en https";
+            $(".input").before(terminalresponse);
+            break;*/
         default: terminalresponse = "commande inconnue : '"+arg+"'";
             $(".input").before(terminalresponse);
             break;
@@ -91,8 +94,8 @@ function whoami()
     });
 };
 
-// affiche la position actuelle de l'ISS
-function iss_location()
+// affiche la position actuelle de l'ISS (désactivé, l'api est en http)
+/*function iss_location()
 {
     terminalresponse = $.ajax({
         method: "POST",
@@ -104,15 +107,59 @@ function iss_location()
         console.log(retour);
         $(".input").before(retour);
     });
-};
+};*/
 
-// affiche la liste des personnes actuellement dans l'espace
-function people_in_space()
+// affiche la liste des personnes actuellement dans l'espace (désactivé, l'api est en http)
+/*function people_in_space()
 {
     terminalresponse = $.ajax({
         method: "POST",
         url: "src/ctrl/route.php",
         data: {"input": "people_in_space"},
+        dataType: "text"
+    })
+    .done(function(retour){
+        console.log(retour);
+        $(".input").before(retour);
+    });
+};*/
+
+// affiche la photo d'astronomie du jour
+function apod()
+{
+    terminalresponse = $.ajax({
+        method: "POST",
+        url: "src/ctrl/route.php",
+        data: {"input": "apod"},
+        dataType: "text"
+    })
+    .done(function(retour){
+        console.log(retour);
+        $(".input").before(retour);
+    });
+};
+
+// affiche la position de l'iss
+function where_is_iss()
+{
+    terminalresponse = $.ajax({
+        method: "POST",
+        url: "src/ctrl/route.php",
+        data: {"input": "where_is_iss"},
+        dataType: "text"
+    })
+    .done(function(retour){
+        console.log(retour);
+        $(".input").before(retour);
+    });
+};
+
+function iss_live()
+{
+    terminalresponse = $.ajax({
+        method: "POST",
+        url: "src/ctrl/route.php",
+        data: {"input": "iss_live"},
         dataType: "text"
     })
     .done(function(retour){
@@ -128,6 +175,8 @@ function evalinput(input)
     var arr = input.split(' ');
     switch(arr[0])
     {
+        case "apod": apod();
+            break;
         case 'help': 
             if (arr.length > 1)
             {
@@ -138,11 +187,15 @@ function evalinput(input)
                 help_generic();
             }
             break;
-        case "iss_location": iss_location();
+        case "iss_live": iss_live();
+        break;
+        /*case "iss_location": iss_location();  // désactivé car l'api est en http et pas en https
             break;
-        case "people_in_space": people_in_space();
-            break;
+        case "people_in_space": people_in_space(); // désactivé car l'api est en http et pas en https
+            break;*/
         case 'showcv': showcv();
+        break;
+        case 'where_is_iss': where_is_iss();
         break;
         case 'whoami': whoami();
         break;

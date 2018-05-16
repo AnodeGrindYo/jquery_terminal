@@ -1,4 +1,9 @@
 <?php
+// Afficher les erreurs à l'écran
+ini_set('display_errors', 1);
+// Afficher les erreurs et les avertissements
+error_reporting(e_all);
+
 $debug = false;
 
 // retourne la liste des répertoires de $path sous la forme
@@ -13,6 +18,7 @@ function list_directories($path)
     }
     //get all files in specified directory
     $files = glob($path . "*");
+    //var_dump($files);
     
     // adds each folder in $folders array
     foreach($files as $file)
@@ -23,6 +29,7 @@ function list_directories($path)
             array_push($folders, $file);
         }
     }
+    //var_dump($folders);
     return $folders;
 }
 
@@ -44,14 +51,16 @@ function autoload_modules($debug=false)
             array_push($modules, $dir);
         }
     }
+    var_dump($modules);
     
     // ajoute un require_once pour chaque module détecté;
     // le point d'entrée d'un module est situé dans un dossier src
     // et porte le nom du dossier sans le prefixe 'module_'
     // par exemple, pour le module 'example', le point d'entrée sera
     // module_example/src/example.php
-    foreach ($modules as $module)
+    /*foreach ($modules as $module)
     {
+        echo $module."<br>";
         $module_name = str_replace("../modules/module_", "", $module);
         if($debug)
         {
@@ -59,6 +68,14 @@ function autoload_modules($debug=false)
             echo $module."/src/".$module_name.".php<br>";
         }
         require_once($module."/src/".$module_name.".php");
+    }*/
+    echo sizeof($modules);
+    for($i=0; $i<sizeof($modules); $i++)
+    {
+        echo $i;
+        echo $modules[$i]."<br>";
+        $module_name = str_replace("../modules/module_", "", $modules[$i]);
+        require_once($module[$i]."/src/".$module_name.".php");
     }
 }
 
