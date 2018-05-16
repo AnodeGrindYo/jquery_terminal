@@ -34,4 +34,39 @@ function apod($key = "cgb1QhXIcvUNgJkwCt589Yr2CvzH2tkcvkaTdy1b")
 	";
 }
 
+function where_is_iss()
+{
+	$iss = json_decode(file_get_contents("https://api.wheretheiss.at/v1/satellites/25544"), true);
+	echo "
+	<table>
+		<caption>position actuelle de l'iss</caption>
+		<tbody>
+			<tr>
+				<td>latitude</td><td>".$iss['latitude']."</td>
+			</tr>
+			<tr>
+				<td>longitude</td><td>".$iss['longitude']."</td>
+			</tr>
+			<tr>
+				<td>altitude</td><td>".$iss['altitude']."</td>
+			</tr>
+			<tr>
+				<td>vélocité</td><td>".$iss['velocity']."</td>
+			</tr>
+			<tr>
+				<td>visibilité&nbsp;&nbsp;&nbsp;</td><td>".$iss['visibility']."</td>
+			</tr>
+			<tr>
+				<td>google map&nbsp;&nbsp;&nbsp;</td><td><a href='https://maps.google.com/maps?t=k&q=".$iss['latitude']."+".$iss['longitude']."&z=4' title='map' target='_blank'>https://maps.google.com/maps?q=".$iss['latitude']."+".$iss['longitude']."&z=4</a></td>
+			</tr>
+		</tbody>
+	</table>
+	";
+}
+
+function iss_live()
+{
+	echo '<iframe width="560" height="315" src="https://www.youtube.com/embed/ddFvjfvPnqk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+}
+
 /*apod();*/
