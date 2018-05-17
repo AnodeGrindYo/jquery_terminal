@@ -7,7 +7,8 @@ function whoami()
 	$os = getOS();
 	$browser = getBrowser();
 	$htmltable = "
-		<table>
+  <div class='row'>
+		<table class='table'>
 			<caption>γνῶθι σεαυτόν</caption>
 			<tbody>
 				<tr>
@@ -21,6 +22,7 @@ function whoami()
 				</tr>
 			</tbody>
 		</table>
+  </div>
 	";
   /*$caption = "
     <video autoplay></video>

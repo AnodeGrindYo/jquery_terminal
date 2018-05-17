@@ -3,18 +3,23 @@
 	color: #0a0;
 	text-shadow: 0 0 3px #0f0;
 	font: 10pt monospace;
-	white-space: pre;
+	/* white-space: pre; */
 	tab-size: 4;
-    width: 100vw;
+/*     width: 80vw; */
     /*max-width: 100vw;*/
     overflow-x: hidden;
     /*display: flex;
     flex-wrap: wrap;
     word-wrap: break-word;*/
+
+    /* display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    overflow-wrap: break-word; */
 }
 
 input {
-    word-wrap: break-word;
+    /* word-wrap: break-word; */
     overflow-x: hidden;
 }
 
@@ -26,6 +31,11 @@ html {
 body {
     background: #000;
     overflow-x: hidden;
+    overflow-wrap: break-word;
+    /* display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    overflow-wrap: break-word; */
 }
 
 .cursor {
@@ -43,4 +53,36 @@ body {
         background-color: #0a0;
         box-shadow:  0 0 3px #0f0;
     }
+}
+
+pre {
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+#mk_kbd_appear {
+    background-color: #000;
+    color: #000;
+    outline: none;
+    border: none;
+    cursor: default;
+    width: 1px;
+    height: 1px;
+}
+
+table, thead, th, td, tr {
+    border: none !important;
+    outline: none !important;
+}
+
+.python {
+    text-shadow: 0 0 0;
+}
+
+iframe {
+    display: block;
+    margin: auto;
 }

@@ -168,6 +168,25 @@ function iss_live()
     });
 };
 
+function learn_machine_learning()
+{
+    route("learn_machine_learning");
+}
+
+function route(arg)
+{
+    terminalresponse = $.ajax({
+        method: "POST",
+        url: "src/ctrl/route.php",
+        data: {"input": arg},
+        dataType: "text"
+    })
+    .done(function(retour){
+        console.log(retour);
+        $(".input").before(retour);
+    });    
+}
+
 // évalue la saisie utilisateur, détecte les commandes implémentées et lance les fonctions correspondantes
 function evalinput(input)
 {
@@ -188,6 +207,8 @@ function evalinput(input)
             }
             break;
         case "iss_live": iss_live();
+        break;
+        case "learn_machine_learning": learn_machine_learning();
         break;
         /*case "iss_location": iss_location();  // désactivé car l'api est en http et pas en https
             break;
@@ -292,5 +313,10 @@ var isMobile = {
 
 if( isMobile.any() )
 {
-    alert("Désolé, cette section du site n'est pas encore compatible avec les smartphones");
+    console.log("Mobile détecté");
 }
+
+$(document).change(function(){
+    $("mk_kbd_appear").val('');
+    $("mk_kbd_appear").focus();
+});

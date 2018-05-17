@@ -1,4 +1,4 @@
-<div class="ascii_header" style="display: flex;justify-content:center;font-size: 2px;text-shadow: 0 0 0.5px #0f0 !important;">
+<div class="ascii_header row text-center" style="display: flex;justify-content:center;font-size: 2px;text-shadow: 0 0 0.5px #0f0 !important;white-space: pre;">
 
 #######################################################################################################################
 ######################################################(((((((((((######################################################

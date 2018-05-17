@@ -10,6 +10,7 @@ ini_set('display_errors', 1);
 require_once("../modules/module_help/src/help.php");
 require_once("../modules/module_whoami/src/whoami.php");
 require_once("../modules/module_nasa/nasa.php");
+require_once("../modules/module_learn_machine_learning/src/learn_machine_learning.php");
 //require_once("../modules/module_iss_location/src/iss_location.php"); // ces deux modules sont désactivés car les api sont en http, et moi en https
 /*require_once("../modules/module_people_in_space/src/people_in_space.php");*/
 
@@ -30,6 +31,8 @@ if(isset($_POST) && isset($_POST["input"]))
         case "apod": apod();
         break;
         case "where_is_iss": where_is_iss();
+        break;
+        case "learn_machine_learning": learn_machine_learning();
         break;
         /*case "people_in_space": people_in_space();
         break;
