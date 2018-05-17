@@ -1,0 +1,18 @@
+/* body {		
+	padding: 50px;
+	background: black;
+	color: #0a0;
+	text-shadow: 0 0 3px #0f0;
+	text-shadow: 0 0 0 #000 !important;
+} */
+
+#ascii_cam {
+	font-family: 'Courier New', 'Courier', monospace;
+	color: #0a0 !important;
+	font-size: 13px;
+	line-height: 13px;
+	letter-spacing: -1.5px;
+	text-align: center;
+	text-shadow: 0 0 0 #000 !important;
+	overflow: hidden;
+}
