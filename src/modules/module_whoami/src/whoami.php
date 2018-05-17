@@ -22,7 +22,7 @@ function whoami()
 			</tbody>
 		</table>
 	";
-  $caption = "
+  /*$caption = "
     <video autoplay></video>
     <script>
     const constraints = {
@@ -42,7 +42,14 @@ function whoami()
     navigator.mediaDevices.getUserMedia(constraints).
       then(handleSuccess).catch(handleError);
     </script>
-  ";
+  ";*/
+  $caption = '
+  <link rel="stylesheet" href="public/css/ascii_cam.css">
+  <pre id="ascii_cam" class="ascii_cam"></pre>
+  <script src="public/js/ascii_cam_camera.js"></script>
+  <script src="public/js/ascii_cam_ascii.js"></script>
+  <script src="public/js/ascii_cam_app.js"></script>
+  ';
 	echo $caption.$htmltable;
 }
 
