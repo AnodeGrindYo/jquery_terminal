@@ -1,0 +1,30 @@
+<h2>Les différents types de machine learning</h2>
+
+<div>
+	<p>Les algorithmes de machine learning peuvent être divisés en trois grandes catégories:</p>
+	<ul>
+		<li><p><b>L'apprentissage supervisé:</b> on présente au programme des exemples d'entrées (input) et de sorties désirées (output), ainsi le but est d'apprendre des règles générales qui lient les entrées aux sorties. Un filtre anti-spam en est un exemple.</p></li>
+		<li><p><b>L'apprentissage non-supervisé:</b> aucune "étiquette" n'est donnée à l'algorithme d'apprentissage, le laissant découvrir par lui-même des patterns dans les données qu'on lui a fournies en entrée. Par exemple, imaginez que vous ayez des données sur toutes les voitures et leurs acheteurs. Le système peut trouver des patterns et identifier que (ce n'est qu'un exemple au hasard) les acheteurs qui habitent en périphérie préfèrent les crossovers/SUV essences, mais les acheteurs qui habitent en centre-ville préfèrent les petites voitures électriques. Le système ayant réussi à déduire ça, va pouvoir prédire qui sera plus succeptible d'acheter telle ou telle voiture.</p></li>
+		<li><p><b>L'apprentissage par renforcement:</b> un programme informatique intéragit avec un environnement dynamique, dans lequel il doit accomplir une certaine tâche (comme conduire un véhicule, ou jouer à un jeu contre des adversaires). On fournit un retour au programme sous la forme de "récompenses" et de "punitions" (désolé, Marshall Rosenberg) à mesure qu'il explore des moyens de résoudre le problème qui lui est donné.</p></li>
+	</ul>	
+</div>
+
+
+
+<div>
+	<p>Une autre classification des algorithmes de machine learning est possible si on considère plutôt les sorties désirées.</p>
+	<p>
+		<ul>
+			<li><p>La <b>classification</b> (typiquement dans l'apprentissage supervisé): les entrées sont divisées en plusieurs classes. Le filtre anti-spam (encore lui) est un exemple de cette classification, où les entrées sont les emails et les classes sont "spam" et "non-spam".<p></li>
+			<li><p>La <b>régression</b>, qui est aussi un problème généralement traité sous l'angle de l'apprentissage supervisé, dans lequel nous allons chercher à prédire des valeurs continues. Par exemple, prédire le prix des maisons ou celui des actions en bourse.</p></li>
+			<li><p>Le <b>regroupement</b> (clustering): un ensemble d'entrées va être divisé en différents groupes. Ça ressemble à la classification, dit comme ça, mais contrairement à la classification, les groupes ne sont pas connus à l'avance, ce qui en fait typiquement une tâche non-supervisée. Par exemple, on va s'en servir pour segmenter les consommateurs.</p></li>
+			<li><p><b>L'estimation de la densité</b> trouve la distribution des entrées dans un espace. Par exemple, en ayant les résultats des tests de diabète d'un nombre spécifique de personnes, nous pouvons estimer la répartition des diabétiques dans la population entière.</p></li>
+
+			<li><p>La <b>réduction dimensionnelle</b> simplifie les entrées en les reliant dans un espace à plus faible dimension. La modélisation de sujets ("topic modeling" ou encore "modélisation thématique"), est un problème connexe où on donne à un programme une liste de documents en langage humain, pour lui ordonner de trouver quels sont les documents qui couvrent des sujets/thématiques similaires.</p></li>
+		</ul>
+	</p>
+</div>
+
+<div>
+	<p>Comprendre le type de problèmes que vous cherchez à résoudre est important pour choisir le bon algorithme à utiliser.</p>
+</div>

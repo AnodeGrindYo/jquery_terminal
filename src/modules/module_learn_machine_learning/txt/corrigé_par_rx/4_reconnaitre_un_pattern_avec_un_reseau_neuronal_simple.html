@@ -1,0 +1,99 @@
+<!-- mathjax pour les formules mathématiques -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<h2>Un réseau neuronal simple pour reconnaître des patterns (modèles)</h2>
+
+<div>
+	<p>Construisons un programme qui va apprendre à l'ordinateur à reconnaître de simples patterns (modèles) en utilisant les réseaux neuronaux!</p>
+	<p>Les réseaux neuronaux, comme les vrais cerveaux, sont formés de neurones interconnectés, qui sont capables d'effectuer une tâche à partir des données qu'on leur fournit. Des tâches comme répondre à une question sur la relation entre ces données.</p>
+
+	<p>prenons le pattern suivant:<br>
+	<br><code>
+		1 1 1 = 1<br>
+		1 0 1 = 1<br>
+		0 1 1 = 0<br>
+	</code><br>
+	Chaque entrée, et la sortie, peut être seulement un 0 ou un 1. Si on y regarde de plus près, nous pouvons remarquer que la sortie est 1 si la première entrée est 1. Toutefois, nous n'allons pas le dire à l'ordinateur: nous allons seulement lui fournir des exemples d'entrées et de sorties, et lui demander de deviner la sortie si on lui fournit en entrée: <code>1 0 0 </code> (cette sortie devrait être 1).
+	</p>
+
+	<p>Pour rester simple, nous allons modéliser un simple neurone, avec trois entrées et une sortie. Les trois exemples ci-dessus sont appelés <b>training set</b>.</p>
+	<p>Nous allons entraîner le neurone à reconnaître le pattern, puis résoudre le problème consistant à trouver la sortie correspondant à l'entrée <code>1 0 0 </code>, en ayant juste le training set, et sans savoir quelle opération il effectue.</p>	
+</div>
+
+<div>
+	<h3>L'entraînement (training)</h3>
+
+	<p>Nous allons donner à chaque entrée un <b>poids</b>, qui peut être un nombre positif ou négatif. Une entrée avec un <b>poids</b> positif grand, ou un grand <b>poids</b> négatif aura un effet plus important sur la sortie du neurone. Avant que nous ne commencions, nous allons assigner un nombre aléatoire à chaque poids. Ensuite, nous allons commencer le processus d'entraînement:
+        <ol>
+        	<li>Prendre l'entrée du training set, l'ajuster à l'aide des poids, et le passer à travers un formule spéciale pour calculer la sortie du neurone.</li>
+        	<li>Calculer l'erreur, qui est la différence entre la sortie du neurone et la sortie désirée dans le training set donné en exemple.</li>
+        	<li>Selon l'erreur, ajuster les poids.</li>
+        	<li>Répéter ce processus 10 000 fois.</li>
+        </ol>
+    Éventuellement, le poids du neurone va atteindre une version optimale pour le training set. Ce processus est appelé <b>rétropropagation</b> (back propagation).
+	</p>
+</div>
+
+<div>
+	<p>Pour la formule, nous allons prendre la somme pondérée des entrées et les normaliser entre 0 et 1:
+		<p> <!-- c'est à peu près du LateX -->
+			$${Sortie \space du \space neurone} = {1 \over {1 + e^ {-(\sum{weight_i input_i})}}}$$
+		</p>
+	</p>
+	<p> Après chaque itération, nous devons ajuster le poids selon l'erreur (la différence entre la sortie calculée et la vraie sortie). Nous allons utiliser cette formule:<br>
+        <code>
+            ajustement = erreur*entree*sortie*(1-sortie)
+        </code><br>
+        Cela va rendre l'ajustement proportionnel à la taille de l'erreur. Après chaque ajustement, la taille de l'erreur devrait être de plus en plus petite.
+	</p>
+</div>
+
+<div>
+	<p>Après la 10 000<sup>ème</sup> itération, nous aurons des poids optimisés, et nous pourrons ensuite donner les sorties que nous désirons au programme. Le programme va utiliser les poids et calculer la sortie en utilisant la même formule des sommes pondérées que précédemment.</p>
+</div>
+
+<div>
+	<p>La technique décrite ici est un exemple très simple. Toutefois, une reconnaissance complexe de pattern ou d'images utilise une approche similaire.</p>
+</div>
+
+<div>
+	<p>Ah... maintenant vous voulez voir du code, j'imagine? Et bien le voici (en Python), mais quelques explications s'imposent avant.</p>
+	<p>Ce code est créé from scratch, sans utiliser de librairie spéciale. Le seul module Python que nous allons utiliser, histoire de gagner quand même un peu de temps, est <b>numpy</b>, qui inclut quelques méthodes pour les multiplications matricielles (si vous ne savez pas ce qui ce cache derrière ce nom qui peut sembler un peu pompeux, eh bien il s'agit de tableaux contenant une suite de valeurs), et d'autres trucs sympas.</p>
+	<p>Notre réseau neuronal sera une classe, qui a des <b>poids</b> pour chaque entrée, et des méthodes <b>entraîner</b> et <b>penser</b>, qui seront utilisées pour entraîner le réseau sur le jeu de données d'entraînenement entrées/sorties, et prédire la sortie à partir des entrées personnalisées.<br></p>
+	
+    <p>Voici la structure de notre classe:
+	<pre>
+	<code>
+class reseau_neuronal:
+	def __init__(self):
+		random.seed(1)
+		self.poids = 2 * random.random((3, 1)) - 1
+
+	def entrainer(self, entree, sortie, nombre):
+
+	def penser(self, entree):
+	</code>
+</pre><br>
+	Nous assignons comme poids initial un nombre entre 0 et 1 dans notre constructeur (la fonction __init__(self) en Python).
+	La méthode <b>penser</b> calcule la somme pondérée en utilisant la formule suivante (oui, c'est la même que plus haut):
+	<p>
+        $${Sortie \space du \space neurone} = {1 \over {1 + e^ {-(\sum{weight_i input_i})}}}$$
+    </p>
+</p>
+<pre>
+<code>
+	def penser(self, entree):
+		return self.__sigmoide(dot(entree, self.poids))
+
+	def __sigmoide(self, x):
+		return 1 / (1 + exp(-x))
+</code>
+</pre>
+
+<p>La méthode <b>dot</b> est utilisée pour calculer le produit scalaire des matrices et retourne la sortie. La méthode <b>__sigmoide</b> sert à nous aider à normaliser les sommes. En maths, la formule correspondante à cette méthode est:
+	<p>
+		$$ 1 \over {(1 + e^{(-x)})} $$
+	</p>
+</p>
+ ...suite de l'article bientôt, il faut que j'aille picoler avec modération ❤︎ ❤︎ ❤︎
+</div>
