@@ -1,9 +1,9 @@
 <!-- mathjax pour les formules mathématiques -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
+<div>
 <h2>Un réseau neuronal simple pour reconnaître des patterns (modèles)</h2>
 
-<div>
+<p>
 	<p>Construisons un programme qui va apprendre à l'ordinateur à reconnaître de simples patterns (modèles) en utilisant les réseaux neuronaux!</p>
 	<p>Les réseaux neuronaux, comme les vrais cerveaux, sont formés de neurones interconnectés, qui sont capables d'effectuer une tâche à partir des données qu'on leur fournit. Des tâches comme répondre à une question sur la relation entre ces données.</p>
 
@@ -18,9 +18,9 @@
 
 	<p>Pour rester simple, nous allons modéliser un simple neurone, avec trois entrées et une sortie. Les trois exemples ci-dessus sont appelés <b>training set</b>.</p>
 	<p>Nous allons entraîner le neurone à reconnaître le pattern, puis résoudre le problème consistant à trouver la sortie correspondant à l'entrée <code>1 0 0 </code>, en ayant juste le training set, et sans savoir quelle opération il effectue.</p>	
-</div>
+</p>
 
-<div>
+<p>
 	<h3>L'entraînement (training)</h3>
 
 	<p>Nous allons donner à chaque entrée un <b>poids</b>, qui peut être un nombre positif ou négatif. Une entrée avec un <b>poids</b> positif grand, ou un grand <b>poids</b> négatif aura un effet plus important sur la sortie du neurone. Avant que nous ne commencions, nous allons assigner un nombre aléatoire à chaque poids. Ensuite, nous allons commencer le processus d'entraînement:
@@ -32,9 +32,9 @@
         </ol>
     Éventuellement, le poids du neurone va atteindre une version optimale pour le training set. Ce processus est appelé <b>rétropropagation</b> (back propagation).
 	</p>
-</div>
+</p>
 
-<div>
+<p>
 	<p>Pour la formule, nous allons prendre la somme pondérée des entrées et les normaliser entre 0 et 1:
 		<p> <!-- c'est à peu près du LateX -->
 			$${Sortie \space du \space neurone} = {1 \over {1 + e^ {-(\sum{weight_i input_i})}}}$$
@@ -46,17 +46,17 @@
         </code><br>
         Cela va rendre l'ajustement proportionnel à la taille de l'erreur. Après chaque ajustement, la taille de l'erreur devrait être de plus en plus petite.
 	</p>
-</div>
+</p>
 
-<div>
-	<p>Après la 10 000<sup>ème</sup> itération, nous aurons des poids optimisés, et nous pourrons ensuite donner les sorties que nous désirons au programme. Le programme va utiliser les poids et calculer la sortie en utilisant la même formule des sommes pondérées que précédemment.</p>
-</div>
+<p>
+	Après la 10 000<sup>ème</sup> itération, nous aurons des poids optimisés, et nous pourrons ensuite donner les sorties que nous désirons au programme. Le programme va utiliser les poids et calculer la sortie en utilisant la même formule des sommes pondérées que précédemment.
+</p>
 
-<div>
-	<p>La technique décrite ici est un exemple très simple. Toutefois, une reconnaissance complexe de pattern ou d'images utilise une approche similaire.</p>
-</div>
+<p>
+	La technique décrite ici est un exemple très simple. Toutefois, une reconnaissance complexe de pattern ou d'images utilise une approche similaire.
+</p>
 
-<div>
+<p>
 	<p>Ah... maintenant vous voulez voir du code, j'imagine? Et bien le voici (en Python), mais quelques explications s'imposent avant.</p>
 	<p>Ce code est créé from scratch, sans utiliser de librairie spéciale. Le seul module Python que nous allons utiliser, histoire de gagner quand même un peu de temps, est <b>numpy</b>, qui inclut quelques méthodes pour les multiplications matricielles (si vous ne savez pas ce qui ce cache derrière ce nom qui peut sembler un peu pompeux, eh bien il s'agit de tableaux contenant une suite de valeurs), et d'autres trucs sympas.</p>
 	<p>Notre réseau neuronal sera une classe, qui a des <b>poids</b> pour chaque entrée, et des méthodes <b>entraîner</b> et <b>penser</b>, qui seront utilisées pour entraîner le réseau sur le jeu de données d'entraînenement entrées/sorties, et prédire la sortie à partir des entrées personnalisées.<br></p>
@@ -95,5 +95,6 @@ class reseau_neuronal:
 		$$ 1 \over {(1 + e^{(-x)})} $$
 	</p>
 </p>
- ...suite de l'article bientôt, il faut que j'aille picoler avec modération ❤︎ ❤︎ ❤︎
+ ...suite de l'article bientôt ;-)
+</p>
 </div>

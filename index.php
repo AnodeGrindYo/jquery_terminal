@@ -37,24 +37,51 @@ require_once("src/util/get_visitor_infos.php");
 				<p class="text-justify">Tip: tappez help pour afficher la liste des commandes.</p>
 			</div>
 		</div>
-		<div class="input row">
-			<span class="prompt"><?php echo  get_client_ip_env();?>@developpeur-logiciel.fr<span class="separator">&nbsp;&#62;&nbsp;</span></span><span class="userinput"></span><span class="cursor">&nbsp; </span>
-		</div>
+		<!-- <div class="container-fluid">
+			<div class="row">
+				<div class="input input-group">
+					<span class="prompt input-group-prepend"><?php echo  get_client_ip_env();?>@developpeur-logiciel.fr<span class="separator">&nbsp;&#62;&nbsp;</span></span><input type="text" name="userinput" class="userinput input-group-prepend">
+				</div>
+			</div>
+		</div> -->
+		<form id="term_form" action="#"  autocomplete="off">
+			<div class="input-group mb-3 input">
+				<div class="input-group-prepend">
+					<span class="input-group-text prompt"><?php echo  get_client_ip_env();?>@developpeur-logiciel.fr<span class="separator">&nbsp;&#62;</span></span>
+				</div>
+				<input type="text"  name="userinput"  class="form-control userinput"  onblur="this.focus()" autofocus spellcheck="false">
+				<!--<div class="input-group-append">
+					<span class="input-group-text">.00</span>
+				</div>-->
+			</div>
+		</form>
 	</div>
+
+
 	<footer class="page-footer" id="page_footer">
 		<input type="text" id="mk_kbd_appear">		
 	</footer>
 	<script src="public/js/terminal.js"></script>
 	<script>
 	// hilight le code affiché quand il y en a - hack temporaire -
-	  $('pre code').each(function(i, block) {
-	    hljs.highlightBlock(block);
-	  });
-	  $(document).scroll(function(){
-	  	$('pre code').each(function(i, block) {
-		    hljs.highlightBlock(block);
-		  });
-	  });
-	</script> 
+	$('pre code').each(function(i, block) {
+		hljs.highlightBlock(block);
+	});
+	$(document).scroll(function(){
+		$('pre code').each(function(i, block) {
+			hljs.highlightBlock(block);
+		});
+	});
+</script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119986103-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119986103-1');
+</script>
+
 </body>
 </html>

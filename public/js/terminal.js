@@ -2,22 +2,78 @@ var userinput = "";
 var inputlines = 1;
 var toeval = "";
 var terminalresponse = "";
+var is_mobile = false;
+var command_history = new Array();
+var current_command_history_index = 0;
 
-
-// permet de récupérer et d'afficher les touches du clavier saisies par l'utilisateur
-function addchar(event) {
-    userinput += event.key;
-    $(".userinput").html(userinput);
+var isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
 };
 
-// permet de supprimer un caractère avec un appui sur backspace
-function delchar(event) {
-    userinput = userinput.slice(0, -1);
-    $(".userinput").html(userinput);
-};
+if( isMobile.any() ) // si c'est un mobile
+{
+    console.log("Mobile détecté");
+    is_mobile = true;
+}
+else
+{
+	$('html').keydown(function(event) {
+		switch(event.keyCode) {
+			case 38: current_command_history_index++// touche up
+				if (current_command_history_index > (command_history.length-1))
+				{
+					current_command_history_index = 0;
+				}
+				$(".userinput").val(command_history[current_command_history_index]);
+				console.log(current_command_history_index);
+				break;
+			case 40: current_command_history_index--// touche down
+				if (current_command_history_index < 0)
+				{
+					current_command_history_index = command_history.length-1;
+				}
+				$(".userinput").val(command_history[current_command_history_index]);
+				console.log(current_command_history_index);
+				break;
+			default: break;
+		}
+	});
+}
 
-// permet de valider la saisie
+jQuery.fn.removeAttributes = function() {
+  return this.each(function() {
+    var attributes = $.map(this.attributes, function(item) {
+      return item.name;
+    });
+    var tag = $(this);
+    $.each(attributes, function(i, item) {
+    tag.removeAttr(item);
+    });
+  });
+}
+
+
+
+/*// permet de valider la saisie
 function validateinput() {
+	console.log($(".input").html());
     var newhistory = $(".input").html();
     newhistory = newhistory.replace('userinput', '');
     newhistory = newhistory.replace('cursor', '');
@@ -29,7 +85,7 @@ function validateinput() {
     $('.userinput').html(userinput);
     $(document).scrollTop($(document).height());
     //inputlines = 1;
-};
+};*/
 
 // fonction d'aide de l'utilisateur pour une commande spécifique
 function help(arg)
@@ -57,20 +113,6 @@ function help(arg)
     }
 };
 
-// fonction d'aide générique qui liste les commandes implémentées
-function help_generic()
-{
-    terminalresponse = $.ajax({
-        method: "POST",
-        url: "src/ctrl/route.php",
-        data: {"input": "help_generic"},
-        dataType: "text"
-    })
-    .done(function(retour){
-        console.log(retour);
-        $(".input").before(retour);
-    });
-};
 
 // affiche le cv dans un nouvel onglet
 function showcv()
@@ -78,100 +120,6 @@ function showcv()
     console.log(window.location.pathname);
     window.open(window.location.pathname+"/../public/files/Adrien_Godoy_SoftDev.pdf");
 };
-
-// affiche des infos basiques sur le visiteur
-function whoami()
-{
-    terminalresponse = $.ajax({
-        method: "POST",
-        url: "src/ctrl/route.php",
-        data: {"input": "whoami"},
-        dataType: "text"
-    })
-    .done(function(retour){
-        console.log(retour);
-        $(".input").before(retour);
-    });
-};
-
-// affiche la position actuelle de l'ISS (désactivé, l'api est en http)
-/*function iss_location()
-{
-    terminalresponse = $.ajax({
-        method: "POST",
-        url: "src/ctrl/route.php",
-        data: {"input": "iss_location"},
-        dataType: "text"
-    })
-    .done(function(retour){
-        console.log(retour);
-        $(".input").before(retour);
-    });
-};*/
-
-// affiche la liste des personnes actuellement dans l'espace (désactivé, l'api est en http)
-/*function people_in_space()
-{
-    terminalresponse = $.ajax({
-        method: "POST",
-        url: "src/ctrl/route.php",
-        data: {"input": "people_in_space"},
-        dataType: "text"
-    })
-    .done(function(retour){
-        console.log(retour);
-        $(".input").before(retour);
-    });
-};*/
-
-// affiche la photo d'astronomie du jour
-function apod()
-{
-    terminalresponse = $.ajax({
-        method: "POST",
-        url: "src/ctrl/route.php",
-        data: {"input": "apod"},
-        dataType: "text"
-    })
-    .done(function(retour){
-        console.log(retour);
-        $(".input").before(retour);
-    });
-};
-
-// affiche la position de l'iss
-function where_is_iss()
-{
-    terminalresponse = $.ajax({
-        method: "POST",
-        url: "src/ctrl/route.php",
-        data: {"input": "where_is_iss"},
-        dataType: "text"
-    })
-    .done(function(retour){
-        console.log(retour);
-        $(".input").before(retour);
-    });
-};
-
-function iss_live()
-{
-    terminalresponse = $.ajax({
-        method: "POST",
-        url: "src/ctrl/route.php",
-        data: {"input": "iss_live"},
-        dataType: "text"
-    })
-    .done(function(retour){
-        console.log(retour);
-        $(".input").before(retour);
-    });
-};
-
-function learn_machine_learning()
-{
-    route("learn_machine_learning");
-}
 
 function route(arg)
 {
@@ -183,7 +131,8 @@ function route(arg)
     })
     .done(function(retour){
         console.log(retour);
-        $(".input").before(retour);
+        $("#term_form").before("&nbsp;"+$("#term_form").children().text()+"&nbsp;&nbsp;"+command_history[0]);
+        $("#term_form").before(retour);
     });    
 }
 
@@ -194,8 +143,10 @@ function evalinput(input)
     var arr = input.split(' ');
     switch(arr[0])
     {
-        case "apod": apod();
+        case "apod": route("apod");
             break;
+        case "code_python": window.open('https://developpeur-logiciel.fr/terminal/src/modules/module_code_editor/python/index.php', 'name');
+        	break;
         case 'help': 
             if (arr.length > 1)
             {
@@ -203,12 +154,12 @@ function evalinput(input)
             }
             else
             {
-                help_generic();
+                route("help_generic");
             }
             break;
-        case "iss_live": iss_live();
+        case "iss_live": route("iss_live");
         break;
-        case "learn_machine_learning": learn_machine_learning();
+        case "learn_machine_learning": route("learn_machine_learning");
         break;
         /*case "iss_location": iss_location();  // désactivé car l'api est en http et pas en https
             break;
@@ -216,9 +167,9 @@ function evalinput(input)
             break;*/
         case 'showcv': showcv();
         break;
-        case 'where_is_iss': where_is_iss();
+        case 'where_is_iss': route("where_is_iss");
         break;
-        case 'whoami': whoami();
+        case 'whoami': route("whoami");
         break;
         default: terminalresponse = "commande inconnue : '"+arr[0]+"'";
             $(".input").before(terminalresponse);
@@ -226,97 +177,18 @@ function evalinput(input)
     }
 };
 
-// évalue la touche appuyée et lance les bonnes fonctions en conséquence
-$('html').keydown(function (event) {
-    console.log("lines : "+inputlines);
-    console.log(event.keyCode);
-    console.log("length: "+userinput.length);
-    /*if(userinput.length == 206 && inputlines == 1)
-    {
-        userinput += "<br>";
-        inputlines++;
-    }
-    else if ((userinput.length - 206)%252 == 0)
-    {
-        userinput += "<br>";
-        inputlines++;
-    }*/
-    switch (event.keyCode) {
-    case 8:
-        delchar(event); // touche backspace
-        break;
-    case 13:
-        validateinput(); // touche entrée
-        break;
-    case 9: // touche tab
-    case 16: // touche shift
-    case 17: // touche control
-    case 18: // touche altgraph
-    case 19: // touche pause
-    case 20: // touche caps lock
-    case 27: // touche echap
-    case 33: // touche pageup
-    case 34: // touche pagedown
-    case 35: // touche fin
-    case 36: // touche home
-    case 37: // arrow left
-    case 38: // arrow up
-    case 39: // arrow right
-    case 40: // arrow down
-    case 45: // touche insert
-    case 91: // touche meta
-    case 93: // touche context menu
-    case 112: // touche f1
-    case 113:
-    case 114:
-    case 115:
-    case 116:
-    case 117:
-    case 118:
-    case 119:
-    case 120:
-    case 121:
-    case 122:
-    case 123: // touche f12
-    case 144: // touche verr num
-    case 145: // touche scroll lock
-    case 226: // touche <
-        break;
-    default:
-        if (userinput.length < 145) { // limite la saisie utilisateur à 144 chars
-            addchar(event); // autres touches du clavier
-        }
-        break;
-    }
-});
 
-var isMobile = {
-    Android: function() {
-        return navigator.userAgent.match(/Android/i);
-    },
-    BlackBerry: function() {
-        return navigator.userAgent.match(/BlackBerry/i);
-    },
-    iOS: function() {
-        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-    },
-    Opera: function() {
-        return navigator.userAgent.match(/Opera Mini/i);
-    },
-    Windows: function() {
-        return navigator.userAgent.match(/IEMobile/i);
-    },
-    any: function() {
-        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-    }
-};
+$(document).keyup((function(){
+	var _input = $(".userinput").val().replace(/[^a-zA-Z \-_]/g, ""); // modifier ici si on a besoin d'autoriser plus de caractère en front
+	$(".userinput").val(_input);
+	input = _input;
+}));
 
-if( isMobile.any() )
-{
-    console.log("Mobile détecté");
-}
-
-$(document).change(function(){
-    $("mk_kbd_appear").val('');
-    $("mk_kbd_appear").focus();
+$("#term_form").submit(function(e){
+	e.preventDefault();
+	evalinput(input);
+	$(".userinput").val("");
+	command_history.unshift(input);
+	current_command_history_index = -1;
+	input = "";
 });

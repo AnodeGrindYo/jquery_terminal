@@ -19,7 +19,7 @@ require_once("../modules/module_learn_machine_learning/src/learn_machine_learnin
 if(isset($_POST) && isset($_POST["input"]))
 {
     /*echo $_POST["input"];*/
-    $input = $_POST["input"];
+    $input = preg_replace('/[^a-zA-Z \-_]/', "", $_POST["input"]);
     switch($input)
     {
         case "help_generic": show_help();
